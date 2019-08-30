@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -10,10 +9,14 @@ import (
 )
 
 //test
+type Request struct {
+}
+
+//test
 type Response events.APIGatewayProxyResponse
 
 //handler
-func Handler(ctx context.Context) (Response, error) {
+func Handler(ctx Request) (Response, error) {
 	var buf bytes.Buffer
 
 	body, err := json.Marshal(map[string]interface{}{
