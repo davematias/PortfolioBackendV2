@@ -3,7 +3,11 @@ import os
 import boto3
 
 from flask import Flask, jsonify, request
+from home import home
+
+# create api
 app = Flask(__name__)
+app.register_blueprint(home.site_blueprint)
 
 USERS_TABLE = os.environ.get('PROFILE_TABLE')
 IS_OFFLINE = os.environ.get('IS_OFFLINE')
