@@ -1,21 +1,71 @@
-service: portfoliobackend
+# serverless.yml
 
-frameworkVersion: '>=1.28.0 <2.0.0'
+service: backend-portfolio
 
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-dynamodb-local
+
+custom:
+  profileTableName: 'profile-${self:provider.stage}'
+  blogTableName: 'blog-${self:provider.stage}'
+  wsgi:
+    app: app.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+    start:
+      migrate: true
+    
 provider:
   name: aws
-  runtime: go1.x
-
-package:
-  exclude:
-    - ./**
-  include:
-    - ./bin/**
-
+  runtime: python3.7
+  stage: dev
+  region: eu-west-1
+  environment:
+    PROFILE_TABLE: ${self:custom.profileTableName}
+    BLOG_TABLE: ${self:custom.blogTableName}
+    
 functions:
-  profile:
-    handler: bin/profile
+  app:
+    handler: wsgi.handler
     events:
-      - http:
-          path: profile
-          method: get
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+resources:
+  Resources:
+    ProfileDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.profileTableName}
+    BlogDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.blogTableName}

@@ -4,10 +4,12 @@ import boto3
 
 from flask import Flask, jsonify, request
 from home import home
+from blog import blog
 
 # create api
 app = Flask(__name__)
 app.register_blueprint(home.site_blueprint)
+app.register_blueprint(blog.blog_blueprint)
 
 USERS_TABLE = os.environ.get('PROFILE_TABLE')
 IS_OFFLINE = os.environ.get('IS_OFFLINE')
@@ -22,8 +24,8 @@ else:
     client = boto3.client('dynamodb')
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+def index():
+    return "Hello from backend!"
 
 @app.route("/users/<string:user_id>")
 def get_user(user_id):
