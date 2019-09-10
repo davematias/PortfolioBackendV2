@@ -20,22 +20,6 @@ custom:
       - ${self:provider.stage}
     start:
       migrate: true
-    
-provider:
-  name: aws
-  runtime: python3.7
-  stage: dev
-  region: eu-west-1
-  environment:
-    PROFILE_TABLE: ${self:custom.profileTableName}
-    BLOG_TABLE: ${self:custom.blogTableName}
-    
-functions:
-  app:
-    handler: wsgi.handler
-    events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
 
 resources:
   Resources:
@@ -69,3 +53,32 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.blogTableName}
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: dev
+  region: eu-west-1
+  environment:
+    PROFILE_TABLE: ${self:custom.profileTableName}
+    BLOG_TABLE: ${self:custom.blogTableName}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["ProfileDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["BlogDynamoDBTable", "Arn"] }
+    
+functions:
+  app:
+    handler: wsgi.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
