@@ -13,8 +13,8 @@ export default class Header extends React.Component {
   componentDidMount() {
     axios
       .get(`${process.env.API_URL}/profile`)
-      .then(result => {        
-        this.setState({profile: result.data});
+      .then(result => {
+        this.setState({ profile: result.data });
       })
       .catch(error => { });
   }
@@ -59,8 +59,30 @@ export default class Header extends React.Component {
                         Resumee
                     </ScrollLink>
                     </li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                      <ScrollLink
+                        activeClass="menu-active"
+                        to="portfolio"
+                        spy={true}
+                        smooth={true}
+                        offset={0}
+                        duration={500}
+                      >
+                        Portfolio
+                    </ScrollLink>
+                    </li>
+                    <li>
+                      <ScrollLink
+                        activeClass="menu-active"
+                        to="contact"
+                        spy={true}
+                        smooth={true}
+                        offset={0}
+                        duration={500}
+                      >
+                        Contact
+                    </ScrollLink>
+                    </li>
                   </>
                   : <></>
               }

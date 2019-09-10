@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
+import axios from 'axios'
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -15,7 +16,12 @@ export default class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-
+    axios
+    .get(`${process.env.API_URL}/profile`)
+    .then(result => {        
+      this.setState({profile: result.data});
+    })
+    .catch(error => { });
   }
 
   render() {
@@ -41,13 +47,12 @@ export default class IndexPage extends React.Component {
                 </h2>
                 <div id="social">
                   <a href={this.state.profile.twitterUrl} target="_blank"><i className="fa fa-twitter"></i></a>
-                  <a href={this.state.profile.facebookUrl} target="_blank"><i className="fa fa-facebook"></i></a>
-                  <a href={this.state.profile.googlePlusUrl} target="_blank"><i className="fa fa-google-plus"></i></a>
+                  <a href={this.state.profile.facebookUrl} target="_blank"><i className="fa fa-facebook"></i></a>                  
                   <a href={this.state.profile.linkedinUrl} target="_blank"><i className="fa fa-linkedin"></i></a>
                   <a href={this.state.profile.githubUrl} target="_blank"><i className="fa fa-github"></i></a>
                 </div>
               </div>
-              : <div className="hero-container"><i class="fa-5x fa fa-spinner fa-spin loader"></i></div>
+              : <div className="hero-container"><i className="fa-5x fa fa-spinner fa-spin loader"></i></div>
           }
         </section>
         {
