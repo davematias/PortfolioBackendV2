@@ -1,15 +1,13 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import { FaAngleUp } from 'react-icons/fa';
+import ScrollUpButton from 'react-scroll-up-button';
 
 import Header from "./header"
+import "../assets/bootstrap/css/bootstrap.min.css"
+import "../assets/font-awesome/css/font-awesome.min.css"
+import "../assets/css/style.css"
 import "./layout.css"
 
 const Layout = ({ children }) => {
@@ -26,20 +24,21 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
+      <div>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+        <footer id="footer">
+          <div className="footer-top">
+            <div className="container"></div>
+          </div>
+          <div className="container">
+            <div className="copyright">
+              &copy; Copyright <strong>David Matias</strong>. All Rights Reserved
+              </div>
+          </div>
         </footer>
+        <ScrollUpButton ContainerClassName="topcontrol" TransitionClassName="return-to-top-transition">
+          <FaAngleUp />
+        </ScrollUpButton>
       </div>
     </>
   )
