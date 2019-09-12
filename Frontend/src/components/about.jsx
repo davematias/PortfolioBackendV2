@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import { Waypoint } from 'react-waypoint';
+
+import Actions from '../events/actions';
 
 class About extends Component {
+  onEnter() {
+    Actions.navigatedTo("about");
+  }
+
   render() {
     return (
       <div>
         <section id="about">
+          <Waypoint
+            onEnter={this.onEnter}
+          />
           <div className="container">
             <div className="row about-container">
 
@@ -17,11 +27,11 @@ class About extends Component {
 
                 <p>
                   The bootstrap template was based on <a href="https://bootstrapmade.com/regna-bootstrap-onepage-template/" rel="noopener noreferrer" target="_blank">Regna</a> and the icons were made by <a href="https://fontawesome.com/" rel="noopener noreferrer" target="_blank">FontAwesome</a> and <a href="https://www.flaticon.com/authors/freepik" rel="noopener noreferrer" target="_blank">Freepik </a>
-                  from <a href="https://www.flaticon.com/" rel="noopener noreferrer" target="_blank">www.flaticon.com</a> (licensed by <a  href="https://creativecommons.org/licenses/by/3.0/" rel="noopener noreferrer" target="_blank">CC 3.0 BY</a>)
+                  from <a href="https://www.flaticon.com/" rel="noopener noreferrer" target="_blank">www.flaticon.com</a> (licensed by <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener noreferrer" target="_blank">CC 3.0 BY</a>)
                 </p>
 
                 <p>
-                    Fork it on <a href="https://github.com/davematias/PortfolioV2" rel="noopener noreferrer" target="_blank">Github!</a>
+                  Fork it on <a href="https://github.com/davematias/PortfolioV2" rel="noopener noreferrer" target="_blank">Github!</a>
                 </p>
 
               </div>

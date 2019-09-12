@@ -6,6 +6,7 @@ import ScrollUpButton from 'react-scroll-up-button';
 
 import Header from "./header"
 import "../assets/bootstrap/css/bootstrap.min.css"
+import "animate.css/animate.min.css"
 import "../assets/font-awesome/css/font-awesome.min.css"
 import "../assets/css/style.css"
 import "./layout.css"
