@@ -29,6 +29,7 @@ export default class Contact extends Component {
 
   onEnter() {
     Actions.navigatedTo("contact");
+    console.log("again");
   }
 
   validateField(fieldName, value) {
@@ -96,21 +97,21 @@ export default class Contact extends Component {
     return (
       <div>
         <section id="contact">
-          <Waypoint
-            onEnter={this.onEnter}
-          />
-          <div className="container wow fadeInUp">
-            <div className="section-header">
-              <h3 className="section-title">Contact Me</h3>
-              <p className="section-description">The best way to get hold of me if by using this contact form, i'll try to get back to you within a day</p>
-            </div>
-          </div>
 
           <div className="container wow fadeInUp">
+            <div className="section-header">
+              <h3 className="section-title">Contact Me</h3>            
+              <p className="section-description">The best way to get hold of me if by using this contact form, i'll try to get back to you within a day</p>            
+            </div>
+          </div>         
+          <div className="container wow fadeInUp">         
             <div className="row justify-content-center">
 
               <div className="col-lg-5 col-md-8">
                 <div className="form">
+                <Waypoint
+              onEnter={this.onEnter}
+            />
                   {
                     this.state.sendDone ?
                       <div id="sendmessage">Your message has been sent. Thank you!</div>

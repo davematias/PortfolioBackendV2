@@ -41,7 +41,7 @@ export default class IndexPage extends React.Component {
   }
 
   onReachTop() {
-    Actions.navigatedTo("home");
+    Actions.navigatedTo("hero");
   }
 
   render() {

@@ -26,7 +26,7 @@ export default class Header extends React.Component {
 
     const body = document.getElementsByTagName("body")[0];
     body.onclick = () => {
-      if(this.state.menuOpen) {
+      if (this.state.menuOpen) {
         this.toggleMobileMenu();
       }
     };
@@ -37,7 +37,7 @@ export default class Header extends React.Component {
   }
 
   _onChange() {
-    let visibleElement = '';
+   /*  let visibleElement = '';
 
     const anchors = ["hero", "resumee", "portfolio", "contact", "about"];
 
@@ -49,12 +49,14 @@ export default class Header extends React.Component {
         break;
       }
     }
-
-    this.setState({ activeItem: visibleElement });
+ */
+    this.setState({ activeItem: NavigationStore.getTarget() });
   }
 
   isInViewport(elem) {
     const bounding = elem.getBoundingClientRect();
+    console.log(elem)
+    console.log(bounding)
     return bounding.top >= 0;
   }
 
@@ -63,11 +65,11 @@ export default class Header extends React.Component {
     evt.stopPropagation();
 
     scroller.scrollTo(elementId, {
-      duration: 500,
+      duration: 500,      
       smooth: true
     });
 
-    if(this.state.menuOpen) {
+    if (this.state.menuOpen) {
       this.toggleMobileMenu();
     }
   }
@@ -99,8 +101,8 @@ export default class Header extends React.Component {
   }
 
   toggleMobileMenu() {
-    const open = !this.state.menuOpen;   
-    this.setState({ menuOpen: open});
+    const open = !this.state.menuOpen;
+    this.setState({ menuOpen: open });
 
     document.getElementsByTagName("body")[0].classList.toggle("mobile-nav-active");
   }

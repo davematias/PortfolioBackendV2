@@ -12,8 +12,6 @@ class Portfolio extends Component {
       currentList: this.props.profile.portfolio,
       currentFilter: 'all'
     };
-
-    console.log(this.props.profile.portfolio);
   }
 
   onEnter() {
