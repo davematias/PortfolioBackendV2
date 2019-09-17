@@ -85,6 +85,9 @@ export default class Contact extends Component {
       })
     })
       .then(response => {
+        if(response.status !== 200) {
+          throw 'Server Error';
+        }
         this.setState({ sendDone: true, sending: false });
         setTimeout(() => this.setState({ sendDone: false }), 3000);
       })
