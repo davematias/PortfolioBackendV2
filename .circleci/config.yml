@@ -23,7 +23,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "/Backend/requirements.txt" }}
+            - v1-dependencies-{{ checksum "Backend/requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
@@ -32,15 +32,15 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r /Backend/requirements.txt
+            pip install -r Backend/requirements.txt
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "/Backend/requirements.txt" }}
+          key: v1-dependencies-{{ checksum "Backend/requirements.txt" }}
 
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest /Backend
+            pytest Backend
