@@ -33,6 +33,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r Backend/requirements.txt
+            pip install -U moto
             pip install -U pytest
 
       - save_cache:
