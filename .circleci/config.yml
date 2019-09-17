@@ -86,7 +86,7 @@ jobs:
     steps:
       - run:
           name: Deploy frontend to aws
-          command: npm run publish
+          command: cd Frontend && npm run publish
 
 workflows:
   version: 2
