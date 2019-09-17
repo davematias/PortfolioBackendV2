@@ -2,7 +2,10 @@
   "name": "numpy-test",
   "description": "",
   "version": "0.1.0",
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "s": "^1.0.0"
+  },
   "devDependencies": {
     "serverless-dynamodb-local": "^0.2.38",
     "serverless-python-requirements": "^5.0.0",

@@ -36,3 +36,6 @@ __pycache__
 # Serverless directories
 .serverless
 .dynamodb
+
+#env files
+.env

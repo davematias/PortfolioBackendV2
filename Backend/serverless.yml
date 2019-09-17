@@ -62,6 +62,11 @@ provider:
   environment:
     PROFILE_TABLE: ${self:custom.profileTableName}
     BLOG_TABLE: ${self:custom.blogTableName}
+    EMAIL_PORT: 465
+    EMAIL_RECEIVER: ${file(./config/envVars.js):getEnvVars.EMAIL_RECEIVER}
+    EMAIL_SENDER: ${file(./config/envVars.js):getEnvVars.EMAIL_SENDER}
+    EMAIL_SENDER_PASSWORD: ${file(./config/envVars.js):getEnvVars.EMAIL_SENDER_PASSWORD}
+    EMAIL_SERVER: smtp.gmail.com
   iamRoleStatements:
     - Effect: Allow
       Action:
