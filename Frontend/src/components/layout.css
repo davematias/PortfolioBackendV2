@@ -184,7 +184,11 @@ body {
 }
 
 .fa-spin.loader {
-  color: #fff
+  color: #fff;
+}
+
+.fa-spin.contact {
+  margin-left: 10px;
 }
 
 .spacer-xl {

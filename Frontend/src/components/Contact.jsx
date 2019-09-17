@@ -13,6 +13,7 @@ export default class Contact extends Component {
       message: '',
       sendError: false,
       sendDone: false,
+      sending: false,
       errors: {
         name: '',
         nameValid: false,
@@ -29,7 +30,6 @@ export default class Contact extends Component {
 
   onEnter() {
     Actions.navigatedTo("contact");
-    console.log("again");
   }
 
   validateField(fieldName, value) {
@@ -68,6 +68,8 @@ export default class Contact extends Component {
   }
 
   sendEmail() {
+    this.setState({sending: true});
+
     const { name, email, subject, message } = this.state;
     fetch(`${process.env.API_URL}/contact`, {
       method: 'post',
@@ -83,12 +85,12 @@ export default class Contact extends Component {
       })
     })
       .then(response => {
-        this.setState({ sendDone: true });
+        this.setState({ sendDone: true, sending: false });
         setTimeout(() => this.setState({ sendDone: false }), 3000);
       })
       .catch(error => {
         console.error('error', error);
-        this.setState({ sendError: true });
+        this.setState({ sendError: true, sending: false });
         setTimeout(() => this.setState({ sendError: false }), 3000);
       });
   }
@@ -100,18 +102,18 @@ export default class Contact extends Component {
 
           <div className="container wow fadeInUp">
             <div className="section-header">
-              <h3 className="section-title">Contact Me</h3>            
-              <p className="section-description">The best way to get hold of me if by using this contact form, i'll try to get back to you within a day</p>            
+              <h3 className="section-title">Contact Me</h3>
+              <p className="section-description">The best way to get hold of me if by using this contact form, i'll try to get back to you within a day</p>
             </div>
-          </div>         
-          <div className="container wow fadeInUp">         
+          </div>
+          <div className="container wow fadeInUp">
             <div className="row justify-content-center">
 
               <div className="col-lg-5 col-md-8">
                 <div className="form">
-                <Waypoint
-              onEnter={this.onEnter}
-            />
+                  <Waypoint
+                    onEnter={this.onEnter}
+                  />
                   {
                     this.state.sendDone ?
                       <div id="sendmessage">Your message has been sent. Thank you!</div>
@@ -155,7 +157,17 @@ export default class Contact extends Component {
                         }
                       </div>
                     </div>
-                    <div className="text-center"><button type="button" onClick={() => this.sendEmail()} disabled={!this.state.errors.formValid}>Send Message</button></div>
+                    <div className="text-center">
+                      <button type="button" onClick={() => this.sendEmail()} disabled={!this.state.errors.formValid}>
+                        Send Message
+                        {
+                          this.state.sending ?
+                            <i className="fa fa-spinner fa-spin loader contact"></i>
+                            :
+                            <></>
+                        }
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

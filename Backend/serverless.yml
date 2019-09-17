@@ -79,6 +79,7 @@ provider:
 functions:
   app:
     handler: wsgi.handler
+    timeout: 15 # optional, in seconds, default is 6
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'

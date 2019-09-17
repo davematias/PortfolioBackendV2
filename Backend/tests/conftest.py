@@ -1,9 +1,10 @@
 import pytest
 import moto
 import boto3
+from unittest.mock import MagicMock
+import smtplib
 
 from app import app
-
 
 @pytest.fixture
 def flask_test_client():
@@ -23,7 +24,19 @@ def env_setup(monkeypatch):
     monkeypatch.setenv('AWS_SECURITY_TOKEN', 'testing')
     monkeypatch.setenv('AWS_SESSION_TOKEN', 'testing')
     monkeypatch.setenv('AWS_DEFAULT_REGION', 'us-east-1')
+    """Mocked email send credentials"""
+    monkeypatch.setenv('EMAIL_SERVER', 'localhost')
+    monkeypatch.setenv('EMAIL_PORT', '25025')
+    monkeypatch.setenv('EMAIL_SENDER', 'test.sender@mydomain.com')
+    monkeypatch.setenv('EMAIL_SENDER_PASSWORD', 'test123')
+    monkeypatch.setenv('EMAIL_RECEIVER', 'test.recipient2@mydomain.com')
 
+    smtp_mock = MagicMock()
+    smtp_mock.sendmail.return_value = {}
+    smtp_mock.send_message.return_value = {}
+
+    monkeypatch.setattr(smtplib, 'SMTP', MagicMock(return_value=smtp_mock))
+    monkeypatch.setattr(smtplib, 'SMTP_SSL', MagicMock(return_value=smtp_mock))
 
 @pytest.fixture
 def create_profile_table():

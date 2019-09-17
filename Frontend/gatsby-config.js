@@ -27,7 +27,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -35,6 +35,12 @@ module.exports = {
       options: {
           bucketName: 'portfolio-frontend-davematias',
           region: 'eu-west-1'
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {        
+        trackingId: "UA-60674807-7",
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
