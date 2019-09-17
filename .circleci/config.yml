@@ -47,36 +47,36 @@ jobs:
             . venv/bin/activate
             pytest Backend
 
-build-frontend:
-  docker:
-    - image: circleci/node:8.10
+  build-frontend:
+    docker:
+      - image: circleci/node:8.10
 
-  working_directory: ~/repo
+    working_directory: ~/repo
 
-  steps:
-    - checkout
+    steps:
+      - checkout
 
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-          - v1-dependencies-
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-    - run:
-        name: Install dependencies
-        command: |
-          cd Frontend && npm install
+      - run:
+          name: Install dependencies
+          command: |
+            cd Frontend && npm install
 
-    - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-
 
-    # run tests!
-    - run:
-        name: Build Site
-        command: cd Frontend && gatsby build
+      # run tests!
+      - run:
+          name: Build Site
+          command: cd Frontend && gatsby build
 
 workflows:
   version: 2
