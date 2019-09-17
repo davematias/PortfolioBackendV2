@@ -79,9 +79,24 @@ jobs:
           name: Build Site
           command: cd Frontend && gatsby build
 
+  deploy-frontend:
+    docker:
+      - image: circleci/node:8.10
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: Deploy frontend to aws
+          command: npm run publish
+
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build-backend
       - build-frontend
+      - deploy-frontend:
+          requires:
+            - build-frontend
+          filters:
+            branches:
+              only: master
