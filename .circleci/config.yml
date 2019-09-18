@@ -103,7 +103,7 @@ jobs:
           name: Install dependencies
           command: |
             cd Backend && npm install
-            sudo npm install -g serverless            
+            sudo npm install -g serverless       
       - run:
           name: Deploy backend to aws
           command: cd Backend && sudo serverless deploy

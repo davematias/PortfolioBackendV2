@@ -1,7 +1,7 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
 
-// require and configure dotenv, will load vars in .env in PROCESS.ENV
-dotenv.config();
+console.log("receiver")
+console.log(process.env.EMAIL_RECEIVER)
 
 module.exports.getEnvVars = () => ({
   EMAIL_RECEIVER: process.env.EMAIL_RECEIVER,
