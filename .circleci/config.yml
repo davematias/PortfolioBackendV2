@@ -96,6 +96,8 @@ jobs:
   deploy-backend:
     docker:
       - image: circleci/node:8.10
+    environment:
+      FOO: bar
     steps:
       - attach_workspace:
           at: .
