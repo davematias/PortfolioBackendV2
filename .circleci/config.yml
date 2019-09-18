@@ -78,24 +78,20 @@ jobs:
           name: Build Site
           command: cd Frontend && gatsby build
 
-      - run: mkdir -p workspace
-      - run: cp -r Frontend workspace
-
       - persist_to_workspace:
-          root: workspace
+          root: .
           paths:
             - Frontend
 
   deploy-frontend:
     docker:
       - image: circleci/node:8.10
-    working_directory: ~/repo
     steps:
-      - attach_workspace:
-          at: /repo/workspace
+      - attach_workspace:          
+          at: /tmp/workspace
       - run:
           name: Deploy frontend to aws
-          command: cd workspace/Frontend && npm run publish
+          command: cd Frontend && npm run publish
 
 workflows:
   version: 2
