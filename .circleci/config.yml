@@ -74,19 +74,28 @@ jobs:
             - node_modules
           key: v1-dependencies-
 
-      # run tests!
       - run:
           name: Build Site
           command: cd Frontend && gatsby build
+
+      - run: mkdir -p workspace
+      - run: cp -r Frontend > workspace/Frontend
+
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - Frontend
 
   deploy-frontend:
     docker:
       - image: circleci/node:8.10
     working_directory: ~/repo
     steps:
+    - attach_workspace:
+          at: /workspace
       - run:
           name: Deploy frontend to aws
-          command: cd Frontend && npm run publish
+          command: cd workspace/Frontend && npm run publish
 
 workflows:
   version: 2
