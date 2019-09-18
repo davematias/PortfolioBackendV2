@@ -27,7 +27,8 @@ jobs:
             . venv/bin/activate
             pip install -r Backend/requirements.txt
             pip install -U moto
-            pip install -U pytest            
+            pip install -U pytest
+            pip install -U coveralls            
 
       - save_cache:
           paths:
@@ -39,6 +40,7 @@ jobs:
           command: |
             . venv/bin/activate
             pytest Backend
+            coveralls
 
       - persist_to_workspace:
           root: .
@@ -104,7 +106,7 @@ jobs:
             sudo npm install -g serverless            
       - run:
           name: Deploy backend to aws
-          command: cd Backend && serverless deploy
+          command: cd Backend && sudo serverless deploy
 
 workflows:
   version: 2
