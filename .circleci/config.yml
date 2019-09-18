@@ -91,7 +91,7 @@ jobs:
       - image: circleci/node:8.10
     working_directory: ~/repo
     steps:
-    - attach_workspace:
+      - attach_workspace:
           at: /workspace
       - run:
           name: Deploy frontend to aws
