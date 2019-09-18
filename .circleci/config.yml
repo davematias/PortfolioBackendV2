@@ -96,8 +96,6 @@ jobs:
   deploy-backend:
     docker:
       - image: circleci/node:8.10
-    environment:
-      FOO: bar
     steps:
       - attach_workspace:
           at: .
@@ -106,13 +104,10 @@ jobs:
           command: |
             cd Backend && npm install
             sudo npm install -g serverless   
-          environment:
-            EMAIL_RECEIVER: 123123    
+            echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
       - run:
           name: Deploy backend to aws
           command: cd Backend && sudo serverless deploy
-          environment:
-            EMAIL_RECEIVER: 123123
 
 workflows:
   version: 2
