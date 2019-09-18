@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/davematias/PortfolioV2/tree/master.svg?style=svg)](https://circleci.com/gh/davematias/PortfolioV2/tree/master)
+
 serverless dynamodb start
 serverless wsgi serve
 
