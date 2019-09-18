@@ -6,14 +6,7 @@ version: 2
 jobs:
   build-backend:
     docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.7.4
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
@@ -35,6 +28,7 @@ jobs:
             pip install -r Backend/requirements.txt
             pip install -U moto
             pip install -U pytest
+            cd Backend && npm install
 
       - save_cache:
           paths:
@@ -104,6 +98,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: Install dependencies
+          command: |
+            sudo npm install -g serverless            
       - run:
           name: Deploy backend to aws
           command: cd Backend && serverless deploy
