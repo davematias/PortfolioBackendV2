@@ -87,8 +87,8 @@ jobs:
     docker:
       - image: circleci/node:8.10
     steps:
-      - attach_workspace:          
-          at: /tmp/workspace
+      - attach_workspace:
+          at: .
       - run:
           name: Deploy frontend to aws
           command: cd Frontend && npm run publish
