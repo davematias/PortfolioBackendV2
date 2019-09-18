@@ -92,7 +92,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /workspace
+          at: /repo/workspace
       - run:
           name: Deploy frontend to aws
           command: cd workspace/Frontend && npm run publish
