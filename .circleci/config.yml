@@ -109,6 +109,8 @@ jobs:
           command: |
             touch .env
             echo "EMAIL_RECEIVER=$EMAIL_RECEIVER" >> .env
+            echo "EMAIL_SENDER=$EMAIL_SENDER" >> .env
+            echo "EMAIL_SENDER_PASSWORD=$EMAIL_SENDER_PASSWORD" >> .env
             cp .env Backend
             cd Backend && sudo serverless deploy
 
