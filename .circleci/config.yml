@@ -39,8 +39,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest Backend
-            coveralls
+            coveralls run -m pytest Backend            
 
       - persist_to_workspace:
           root: .
@@ -107,6 +106,8 @@ jobs:
       - run:
           name: Deploy backend to aws
           command: cd Backend && sudo serverless deploy
+          environment:
+            EMAIL_RECEIVER: 123123
 
 workflows:
   version: 2
