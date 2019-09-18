@@ -107,8 +107,9 @@ jobs:
       - run:
           name: Deploy backend to aws
           command: |
-            export EMAIL_RECEIVER=$EMAIL_RECEIVER
-            VARNAME="my value"
+            touch .env
+            echo "EMAIL_RECEIVER=$EMAIL_RECEIVER" >> .env
+            cp .env Backend
             cd Backend && sudo serverless deploy
 
 workflows:
