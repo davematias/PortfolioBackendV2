@@ -47,6 +47,11 @@ jobs:
             . venv/bin/activate
             pytest Backend
 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Backend
+
   build-frontend:
     docker:
       - image: circleci/node:8.10
@@ -93,6 +98,16 @@ jobs:
           name: Deploy frontend to aws
           command: cd Frontend && npm run publish
 
+  deploy-backend:
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy backend to aws
+          command: cd Backend && serverless deploy
+
 workflows:
   version: 2
   build-deploy:
@@ -102,6 +117,12 @@ workflows:
       - deploy-frontend:
           requires:
             - build-frontend
+          filters:
+            branches:
+              only: master
+      - deploy-backend:
+          requires:
+            - build-backend
           filters:
             branches:
               only: master
