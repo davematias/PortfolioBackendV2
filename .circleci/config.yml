@@ -106,7 +106,7 @@ jobs:
             sudo npm install -g serverless
       - run:
           name: Deploy backend to aws
-          command: cd Backend && sudo EMAIL_RECEIVER=$EMAIL_RECEIVER serverless deploy
+          command: cd Backend && sudo EMAIL_RECEIVER=$EMAIL_RECEIVER EMAIL_SENDER=$EMAIL_SENDER EMAIL_SENDER_PASSWORD=$EMAIL_SENDER_PASSWORD serverless deploy
 
 workflows:
   version: 2
