@@ -107,7 +107,8 @@ jobs:
       - run:
           name: Deploy backend to aws
           command: |
-            export EMAIL_RECEIVER=$EMAIL_RECEIVER 
+            export EMAIL_RECEIVER=$EMAIL_RECEIVER
+            VARNAME="my value"
             cd Backend && sudo serverless deploy
 
 workflows:
