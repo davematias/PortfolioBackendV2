@@ -107,6 +107,7 @@ jobs:
       - run:
           name: Deploy backend to aws
           command: |
+            serverless config credentials --provider aws --key $AWS_ID --secret $AWS_PASS
             touch .env
             echo "EMAIL_RECEIVER=$EMAIL_RECEIVER" >> .env
             echo "EMAIL_SENDER=$EMAIL_SENDER" >> .env
