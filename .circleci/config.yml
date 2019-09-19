@@ -39,7 +39,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            coverage run --source=Backend -m pytest Backend         
+            coverage run --source=~/repo/Backend pytest Backend         
             coveralls   
 
       - persist_to_workspace:
