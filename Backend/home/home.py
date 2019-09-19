@@ -3,11 +3,12 @@ import smtplib, ssl
 from email.message import EmailMessage
 from typing import Tuple
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
 from utils import dynamo
 
 site_blueprint = Blueprint('site', __name__,)
 
-@site_blueprint.route('/profile')
+@site_blueprint.route('/profile', methods=['GET'])
 def profile():
     user = __getProfile()
     if not user:
@@ -15,6 +16,10 @@ def profile():
 
     return jsonify(user)
 
+@site_blueprint.route('/profile', methods=['POST'])
+@jwt_required
+def saveProfile():
+    return jsonify(success=True)
 
 @site_blueprint.route('/contact', methods=['POST'])
 def contact():
@@ -49,8 +54,7 @@ def contact():
             server.send_message(msg)
             server.close()
 
-        resp = jsonify(success=True)
-        return resp
+        return jsonify(success=True)
     except Exception as e:
         print(e)
         return jsonify({'error': 'Unable to send the email'}), 500
