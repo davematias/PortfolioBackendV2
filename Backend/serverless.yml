@@ -21,6 +21,7 @@ custom:
       - ${self:provider.stage}
     start:
       migrate: true
+      dbPath: "./.dynamodb"
 
 resources:
   Resources:
