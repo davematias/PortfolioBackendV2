@@ -19,6 +19,21 @@ def profile():
 @site_blueprint.route('/profile', methods=['POST'])
 @jwt_required
 def saveProfile():
+    data = request.get_json()
+
+    if 'id' not in data.keys():
+        return jsonify({'ok': False, 'message': 'id field is required'}), 400
+
+    existingProfile = __getProfile()
+
+    if data['id'] != existingProfile['id']:
+        return jsonify({'ok': False, 'message': 'id is different from profile id'}), 400
+
+    isValid, err = __validateProfile(data)
+
+    if not isValid:
+        return jsonify({'ok': False, 'message': err}), 400
+
     return jsonify(success=True)
 
 @site_blueprint.route('/contact', methods=['POST'])
@@ -91,3 +106,6 @@ def __validateMessage(emailData: dict) -> Tuple[bool, str]:
 
 def __createMessage(emailData: dict) -> str:
     return 'Name: {}\nEmail: {} \nSubject: {} \nMessage: {}'.format(emailData['name'], emailData['email'], emailData['subject'], emailData['message'])
+
+def __validateProfile(profile: dict) -> Tuple[bool, str]:
+    return False, "no no"
