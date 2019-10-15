@@ -20,12 +20,6 @@ def test_get_profile(insert_test_profile, flask_test_client):
 
     assert obj == test_profile
 
-def test_save_profile_unauthorized(insert_test_user, flask_test_client):
-    result = flask_test_client.post('/profile', json=edited_profile)
-    obj = json.loads(result.data)
-
-    assert result.status_code == 401
-
 def test_post_contact(flask_test_client):
     post_data = {
         'name': 'testuser',
