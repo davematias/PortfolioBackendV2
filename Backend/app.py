@@ -7,7 +7,6 @@ from flask_jwt_extended import JWTManager
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from home import home
-from blog import blog
 from auth import auth
 
 JWT_SECRET = os.getenv('JWT_SECRET')
@@ -22,7 +21,6 @@ app.config['JWT_SECRET_KEY'] = JWT_SECRET
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=int(JWT_TOKEN_DURATION_DAYS))
 
 app.register_blueprint(home.site_blueprint)
-app.register_blueprint(blog.blog_blueprint)
 app.register_blueprint(auth.auth_blueprint)
 # setup cors
 CORS(app, resources={r"/*": {"origins": "*"}})

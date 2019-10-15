@@ -26,24 +26,6 @@ def test_save_profile_unauthorized(insert_test_user, flask_test_client):
 
     assert result.status_code == 401
 
-def test_save_profile_missing_fields(insert_test_user, flask_test_client, test_user_data):
-    result = flask_test_client.post('/auth', json=test_user_data)
-    obj = json.loads(result.data)
-
-    save_profile_result = flask_test_client.post('/profile', json=edited_profile_wrong,
-        headers={'Authorization': 'Bearer {}'.format(obj['data']['token'])})
-
-    assert save_profile_result.status_code == 400
-
-def test_save_profile(insert_test_user, flask_test_client, test_user_data):
-    result = flask_test_client.post('/auth', json=test_user_data)
-    obj = json.loads(result.data)
-
-    save_profile_result = flask_test_client.post('/profile', json=edited_profile,
-        headers={'Authorization': 'Bearer {}'.format(obj['data']['token'])})
-
-    assert save_profile_result.status_code == 200
-
 def test_post_contact(flask_test_client):
     post_data = {
         'name': 'testuser',
