@@ -86,6 +86,3 @@ def __validateMessage(emailData: dict) -> Tuple[bool, str]:
 
 def __createMessage(emailData: dict) -> str:
     return 'Name: {}\nEmail: {} \nSubject: {} \nMessage: {}'.format(emailData['name'], emailData['email'], emailData['subject'], emailData['message'])
-
-def __validateProfile(profile: dict) -> Tuple[bool, str]:
-    return False, "no no"

@@ -12,9 +12,12 @@ from utils import dynamo
 @click.option('--email', '-e', required=True)
 @click.option('--password', '-p', required=True)
 def main(offline, region, stage, email, password):
+    createAdmin(offline, region, stage, email, password)
+
+def createAdmin(offline, region, stage, email, password):
     os.environ["IS_OFFLINE"] = offline
     os.environ["AWS_DEFAULT_REGION"] = region
-    table = dynamo.getTable("user-"+stage)
+    table = dynamo.getTable("USER-"+stage)
     user = {
         "email" : email,
         "password": flask_bcrypt.generate_password_hash(password).decode('utf-8')
