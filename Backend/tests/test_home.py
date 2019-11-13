@@ -4,7 +4,8 @@ import os
 import json
 
 test_profile = {'id': '123123', 'name':  'testuser'}
-
+edited_profile = {'id': '123123', 'name':  'gin'}
+edited_profile_wrong = {'id': '123123', 'name':  'gin'}
 
 @pytest.fixture
 def insert_test_profile(create_profile_table):
@@ -18,7 +19,6 @@ def test_get_profile(insert_test_profile, flask_test_client):
     obj = json.loads(result.data)
 
     assert obj == test_profile
-
 
 def test_post_contact(flask_test_client):
     post_data = {

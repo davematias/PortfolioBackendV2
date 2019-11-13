@@ -10,9 +10,12 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "app.py",
+                "FLASK_APP": "${workspaceFolder}/Backend/app.py",
                 "FLASK_ENV": "development",
-                "FLASK_DEBUG": "0"
+                "FLASK_DEBUG": "0",
+                "JWT_SECRET": "dknwo3ifk3b1",
+                "IS_OFFLINE": "true",
+                "USER_TABLE": "user-dev"
             },
             "args": [
                 "run",
